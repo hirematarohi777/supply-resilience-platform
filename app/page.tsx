@@ -2,6 +2,23 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const OperationalTwin = dynamic(() => import("@/components/OperationalTwin"), {
+  ssr: false,
+  loading: () => (
+    <div style={{
+      width: "100%", height: "100%", display: "flex",
+      alignItems: "center", justifyContent: "center"
+    }}>
+      <div style={{
+        width: 24, height: 24, border: "2px solid #E2DDD6",
+        borderTopColor: "#0A0A0A", borderRadius: "50%",
+        animation: "spin-slow 1s linear infinite"
+      }} />
+    </div>
+  ),
+});
 import {
   ArrowRight, ChevronDown, Menu, X, Shield, Brain, GitBranch,
   BarChart3, Layers, CheckCircle2, Zap, Users, Globe, Lock,
@@ -430,47 +447,55 @@ export default function Home() {
       {/* ── HERO ── */}
       <section style={{ paddingTop: 160, paddingBottom: 80, position: "relative", overflow: "hidden" }} className="grid-pattern">
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
-          <div style={{ maxWidth: 800 }}>
-            {/* Eyebrow */}
-            <div className="animate-fade-in" style={{
-              display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 32,
-              padding: "6px 14px", borderRadius: 100, border: "1px solid var(--border)",
-              background: "white", fontSize: 13, fontWeight: 500, color: "var(--fg-muted)"
-            }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e" }} />
-              Predictive Logistics Decision Platform
+          {/* Hero two-column layout: left content + right visualization */}
+          <div className="hero-twin-layout">
+            <div style={{ maxWidth: 800 }}>
+              {/* Eyebrow */}
+              <div className="animate-fade-in" style={{
+                display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 32,
+                padding: "6px 14px", borderRadius: 100, border: "1px solid var(--border)",
+                background: "white", fontSize: 13, fontWeight: 500, color: "var(--fg-muted)"
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e" }} />
+                Predictive Logistics Decision Platform
+              </div>
+
+              {/* Headline */}
+              <h1 className="animate-fade-in delay-100" style={{
+                fontSize: "clamp(52px, 7vw, 88px)",
+                fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0,
+                marginBottom: 28
+              }}>
+                The platform<br />to sustain<br />operations.
+              </h1>
+
+              {/* Sub */}
+              <p className="animate-fade-in delay-200" style={{
+                fontSize: 18, color: "var(--fg-muted)", lineHeight: 1.7, maxWidth: 520, marginBottom: 40
+              }}>
+                Uncertainty-aware inventory twin, predictive demand forecasting, mission dependency graphs, and human-in-the-loop approval — all in one platform.
+              </p>
+
+              {/* CTAs */}
+              <div className="animate-fade-in delay-300" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <Link href="/app" className="btn-primary" style={{ fontSize: 15, padding: "14px 28px" }}>
+                  Explore demo workspace <ArrowRight size={16} />
+                </Link>
+                <a href="#how-it-works" className="btn-outline" style={{ fontSize: 15, padding: "14px 28px" }}>
+                  <Play size={14} /> Watch walkthrough
+                </a>
+              </div>
+
+              {/* Note */}
+              <p className="animate-fade-in delay-400" style={{ marginTop: 20, fontSize: 12, color: "var(--fg-subtle)" }}>
+                No payment required · Synthetic demo data · Isolated workspace
+              </p>
             </div>
 
-            {/* Headline */}
-            <h1 className="animate-fade-in delay-100" style={{
-              fontSize: "clamp(52px, 7vw, 88px)",
-              fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0,
-              marginBottom: 28
-            }}>
-              The platform<br />to sustain<br />operations.
-            </h1>
-
-            {/* Sub */}
-            <p className="animate-fade-in delay-200" style={{
-              fontSize: 18, color: "var(--fg-muted)", lineHeight: 1.7, maxWidth: 520, marginBottom: 40
-            }}>
-              Uncertainty-aware inventory twin, predictive demand forecasting, mission dependency graphs, and human-in-the-loop approval — all in one platform.
-            </p>
-
-            {/* CTAs */}
-            <div className="animate-fade-in delay-300" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <Link href="/app" className="btn-primary" style={{ fontSize: 15, padding: "14px 28px" }}>
-                Explore demo workspace <ArrowRight size={16} />
-              </Link>
-              <a href="#how-it-works" className="btn-outline" style={{ fontSize: 15, padding: "14px 28px" }}>
-                <Play size={14} /> Watch walkthrough
-              </a>
+            {/* Operational Digital Twin — right side */}
+            <div className="hero-twin-viz animate-fade-in delay-300">
+              <OperationalTwin />
             </div>
-
-            {/* Note */}
-            <p className="animate-fade-in delay-400" style={{ marginTop: 20, fontSize: 12, color: "var(--fg-subtle)" }}>
-              No payment required · Synthetic demo data · Isolated workspace
-            </p>
           </div>
 
           {/* Hero stats */}

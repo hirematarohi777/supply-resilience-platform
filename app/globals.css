@@ -168,6 +168,48 @@ body {
 .sidebar-item:hover { background: var(--bg-secondary); color: var(--fg); }
 .sidebar-item.active { background: var(--fg); color: white; }
 
+/* ── Hero Digital Twin Layout ── */
+.hero-twin-layout {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  align-items: center;
+  gap: 0;
+  min-height: 420px;
+}
+
+.hero-twin-viz {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  max-height: 560px;
+  align-self: center;
+  /* Reserve space to prevent layout shift */
+  contain: layout style;
+}
+
+/* Prevent the canvas from intercepting scroll */
+.hero-twin-viz canvas {
+  touch-action: pan-y;
+}
+
+@media (max-width: 1024px) {
+  .hero-twin-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero-twin-viz {
+    height: 360px;
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-twin-viz {
+    height: 280px;
+    max-height: 320px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
